@@ -1,10 +1,10 @@
 import {info} from './env.js';
 
 const container= document.querySelector('#container');
-//const body = document.querySelector('body');
-//const h1= document.createElement('h1');
-//container.appendChild(h1);
-//h1.textContent ='Random Word Generator and its Definition';
+const body = document.querySelector('body');
+//const h2= document.createElement('h2');
+//body.appendChild(h2);
+//h2.textContent ='Random Word Generator and its Definition';
 const btn = document.querySelector("#btn");
 const word = document.createElement('h3');
 const definition = document.createElement('p');
@@ -13,6 +13,7 @@ btn.addEventListener('click',(e)=>{
     randomWord();
    
 }) 
+
 
 const randomWord = () =>{
     fetch("https://random-word-api.herokuapp.com/word?number=1")
@@ -41,9 +42,9 @@ const wordDefinition = (word) =>{
      .then (response =>{
          console.log(response[0].shortdef);
          if(response[0].shortdef !== undefined){
-            definition.textContent = ` Definition: ${response[0].shortdef}`;
+            definition.textContent =  `Definition: ${response[0].shortdef}`;
          }else{
-            definition.textContent = `Sorry No Definition Available`;
+            definition.textContent = `Sorry ! No Definition Available`;
          }
         
          container.appendChild(definition);

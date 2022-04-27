@@ -51,15 +51,14 @@ const randomWord = () => {
 
 //--- Function for getting the word definition---//
 //---Using the Fetch command  to get the dictionary API ----//
-const wordDefinition = (word) => {
-    console.log(word);
+const wordDefinition = () => {
+    
     fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${info.key}`)
         .then(response => {
             return response.json();
 
         })
         .then(response => {
-            console.log(response);
             if (response[0].shortdef !== undefined) {
                 definition.textContent = `Definition: ${response[0].shortdef}`;
             } else {

@@ -6,10 +6,22 @@ const body = document.querySelector('body');
 //body.appendChild(h2);
 //h2.textContent ='Random Word Generator and its Definition';
 const btn = document.querySelector("#btn");
+const typeBtn = document.querySelector("#typebtn");
 //const word = document.createElement('h3');
 //const definition = document.createElement('p');
 
- 
+
+btn.addEventListener('click',(e)=>{
+    randomWord();
+    wordDefinition();
+    console.log(html);
+})
+
+typeBtn.addEventListener('click', (e) =>{
+    e.preventDefault();
+    typeWord();
+})
+
 
 let html="";
 let objInfo="";
@@ -43,9 +55,6 @@ const randomWord = () =>{
        //container.appendChild(word);
        wordDefinition(word);
 
-       
-    
-
      })
       .catch(err =>{
           console.log("Error", err);
@@ -57,6 +66,7 @@ const randomWord = () =>{
      
      defList += dt;
  }
+
  
 // console.log(word);
 const wordDefinition = (word) =>{
@@ -88,14 +98,23 @@ const wordDefinition = (word) =>{
      .catch( err=>{
          console.log("Error", err);
      })
-     
+}  
+
+      //----Function to get the typed word ---
+const typeWord =() =>{
+    let text = document.querySelector('input').value;
+      word.textContent = text;
+    console.log(text);
+    wordDefinition(word);
+  
+  }
      //html += `</dl>`;
 
      //defList += dt;
      //console.log(defList);
      //console.log(dt);
      //console.log(html);
- }
+ 
  html += defList;
  const container= document.querySelector('#container');
  container.innerHTML += html;
@@ -103,8 +122,4 @@ const wordDefinition = (word) =>{
  console.log(html);
 
 
- btn.addEventListener('click',(e)=>{
-    randomWord();
-    wordDefinition();
-    console.log(html);
-})
+ 

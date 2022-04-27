@@ -1,26 +1,23 @@
-import {info} from './personal.js';
+import {
+    info
+} from './personal.js';
 
 
 //--Shortcut variables for the buttons and the body.
-const container= document.querySelector('#container');
-//const body = document.querySelector('body');
-//const h2= document.createElement('h2');
-//body.appendChild(h2);
-//h2.textContent ='Random Word Generator and its Definition';
+//const container = document.querySelector('#container');
 const btn = document.querySelector("#btn");
 const typeBtn = document.querySelector("#typebtn");
-const word = document.createElement('h3');
 const definition = document.createElement('p');
 
 
 // Adding Events to the butons----//
 // --- Event for Random Button ---//
-btn.addEventListener('click',(e)=>{
-    randomWord();  
-}) 
+btn.addEventListener('click', (e) => {
+    randomWord();
+})
 
 // --- Event for Input Button --//
-typeBtn.addEventListener('click', (e) =>{
+typeBtn.addEventListener('click', (e) => {
     e.preventDefault();
     typeWord();
 })
@@ -28,58 +25,66 @@ typeBtn.addEventListener('click', (e) =>{
 //------Functions --------//
 //---Fuction for random words.--//
 //Using the fetch method from random word API--//
-const randomWord = () =>{
+const randomWord = () => {
     fetch("https://random-word-api.herokuapp.com/word?number=1")
-    .then(response =>{
-          return response.json();
-    })
-     .then (response =>{
-         console.log(response);
-       
-       word.textContent = response;
-       container.appendChild(word);
-       wordDefinition(word);
+        .then(response => {
+            return response.json();
+        })
+        .then(response => {
+            //console.log(response[0]);
+            let word = response[0];
+            let h3 = document.createElement('H3');
 
-     })
-      .catch(err =>{
-          console.log("Error", err);
-          
-      }) 
- }
+            h3.textContent = word;
+            let title = document.querySelector("#title");
+            title.innerHTML = "";
+            title.append(h3);
+            
+            wordDefinition(word);
+
+        })
+        .catch(err => {
+            console.log("Error", err);
+
+        })
+}
 
 //--- Function for getting the word definition---//
 //---Using the Fetch command  to get the dictionary API ----//
-const wordDefinition = (word) =>{
-     console.log(word);
-     fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word.textContent}?key=${info.key}`)
-     .then( response => { 
-         return response.json();
-         
-     })
-     .then (response =>{
-         console.log(response);
-         if(response[0].shortdef !== undefined){
-            definition.textContent =  `Definition: ${response[0].shortdef}`;
-         }else{
-            definition.textContent = `Sorry ! No Definition Available`;
-         }
-        
-         container.appendChild(definition);
+const wordDefinition = (word) => {
+    console.log(word);
+    fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${info.key}`)
+        .then(response => {
+            return response.json();
 
-     })
-     .catch( err=>{
-         console.log("Error", err);
-     })
- }
+        })
+        .then(response => {
+            console.log(response);
+            if (response[0].shortdef !== undefined) {
+                definition.textContent = `Definition: ${response[0].shortdef}`;
+            } else {
+                definition.textContent = `Sorry ! No Definition Available`;
+            }
+            let def = document.getElementById("def");
+            def.innerHTML = "";
+            def.appendChild(definition);
 
- //----Function to get the typed word ---
-const typeWord =() =>{
+        })
+        .catch(err => {
+            console.log("Error", err);
+        })
+}
+
+//----Function to get the typed word ---
+const typeWord = () => {
     let text = document.querySelector('input').value;
-      word.textContent = text;
-    console.log(text);
-    wordDefinition(word);
-  
-  }
+    let h3 = document.createElement('H3');
+    h3.textContent = text;
 
+    let title = document.querySelector("#title");
+    title.innerHTML = "";
+    title.append(h3);
+    
+    wordDefinition(text);
 
- 
+}

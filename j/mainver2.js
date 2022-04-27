@@ -24,7 +24,7 @@ typeBtn.addEventListener('click', (e) =>{
 
 
 let html="";
-let objInfo="";
+
 let defList= `<dl class="defiList">`;
 let dt =``;
 let dd = `<dd class="def">`;

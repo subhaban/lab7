@@ -7,7 +7,7 @@ import {
 //const container = document.querySelector('#container');
 const btn = document.querySelector("#btn");
 const typeBtn = document.querySelector("#typebtn");
-const definition = document.createElement('p');
+const para = document.createElement('p');
 
 
 // Adding Events to the butons----//
@@ -47,6 +47,7 @@ const randomWord = () => {
             console.log("Error", err);
 
         })
+    
 }
 
 //--- Function for getting the word definition---//
@@ -59,15 +60,15 @@ const wordDefinition = (word) => {
 
         })
         .then(response => {
-           
+           console.log(response);
             if (response[0].shortdef !== undefined) {
-                definition.textContent = `Definition: ${response[0].shortdef}`;
+                para.textContent = `Definition: ${response[0].shortdef}`;
             } else {
-                definition.textContent = `Sorry ! No Definition Available`;
+                para.textContent = `Sorry ! No Definition Available`;
             }
             let def = document.getElementById("def");
             def.innerHTML = "";
-            def.appendChild(definition);
+            def.appendChild(para);
 
         })
         .catch(err => {
